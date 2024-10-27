@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form-select {
+  @apply transition inline-flex h-full items-center rounded-lg border border-neutral-400 bg-neutral-900 p-1 text-sm text-neutral-200 ring-offset-neutral-900 hover:bg-neutral-800 hover:text-white focus:z-10 focus-visible:border-neutral-300 focus-visible:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-300/30 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.wrapper {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
+}
