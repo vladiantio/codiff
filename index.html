@@ -5,10 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>codiff</title>
-    <meta name="description" content="codiff is a ..." />
+    <meta name="description" content="codiff is a tool for comparing two code versions" />
   </head>
-  <body class="bg-neutral-900 text-white min-h-dvh h-auto antialiased">
-    <div id="root"></div>
-    <script type="module" src="/src/index.tsx"></script>
+  <body class="bg-neutral-900 text-neutral-50 min-h-dvh antialiased">
+    <div id="root" class="min-h-dvh">
+      <div id="loading" class="grid place-items-center min-h-dvh">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="16" stroke-dashoffset="16" d="M12 3c4.97 0 9 4.03 9 9"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="16;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path><path stroke-dasharray="64" stroke-dashoffset="64" stroke-opacity="0.3" d="M12 3c4.97 0 9 4.03 9 9c0 4.97 -4.03 9 -9 9c-4.97 0 -9 -4.03 -9 -9c0 -4.97 4.03 -9 9 -9Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.2s" values="64;0"/></path></g></svg>
+      </div>
+    </div>
+    <script type="module" async src="/src/index.tsx"></script>
   </body>
 </html>

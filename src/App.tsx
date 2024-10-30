@@ -2,7 +2,7 @@ import { createSignal, For } from "solid-js";
 import { readFile } from "./utils/files";
 import { DiffEditor } from "./components/DiffEditor";
 import { languages } from "./constants/languages";
-import { Eraser } from "lucide-solid";
+import { ArrowUpRight, Eraser, GitHub } from "./icons";
 import { DropZone } from "./components/DropZone";
 
 function App() {
@@ -34,7 +34,30 @@ function App() {
 
   return (
     <>
-      <div class="grid min-h-dvh [grid-template-rows:1fr_auto] gap-2 p-2">
+      <div class="grid min-h-dvh [grid-template-rows:auto_1fr] gap-3 p-3">
+        <nav class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <img class="size-8" src="icon.svg" />
+            <h1 class="font-medium">codiff</h1>
+          </div>
+          <select class="form-select" onInput={(ev) => setLanguageName(ev.currentTarget.value)} value={languageName()}>
+            <For each={languages}>
+              {lang => (
+                <option value={lang.name}>{lang.title}</option>
+              )}
+            </For>
+          </select>
+          <div class="flex-grow" />
+          <button class="px-3 py-1 rounded-full border border-neutral-400 flex items-center" type="button" onClick={() => clear()}>
+            <Eraser class="size-5" />
+            <span class="ml-2">Clear</span>
+          </button>
+          <a class="px-3 py-1 rounded-full border border-neutral-100 bg-neutral-100 text-neutral-900 flex items-center" href="https://github.com/vladiantio/codiff" rel="noopener noreferrer" target="_blank" title="GitHub">
+            <GitHub class="size-5" />
+            <span class="ml-2">Star</span>
+            <ArrowUpRight class="size-[1em] text-neutral-500" />
+          </a>
+        </nav>
         <DiffEditor
           class="overflow-hidden rounded-lg shadow-md"
           language={languageName()}
@@ -43,18 +66,6 @@ function App() {
           onUpdateOriginalCode={code => setOriginalCode(code)}
           onUpdateModifiedCode={code => setModifiedCode(code)}
         />
-        <div class="flex items-center justify-between gap-4">
-          <select class="form-select" onInput={(ev) => setLanguageName(ev.currentTarget.value)} value={languageName()}>
-            <For each={languages}>
-              {lang => (
-                <option value={lang.name}>{lang.title}</option>
-              )}
-            </For>
-          </select>
-          <button type="button" title="Clear" onClick={() => clear()}>
-            <Eraser />
-          </button>
-        </div>
       </div>
       <DropZone
         onChangeOriginalFile={file => handleChangeFile(1, file)}

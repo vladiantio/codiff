@@ -1,29 +1,5 @@
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
-import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
-import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
-import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
-import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
 import { Component, createEffect, createSignal, on, onCleanup, onMount } from 'solid-js';
 import { editor } from 'monaco-editor';
-
-if (!window.MonacoEnvironment)
-  window.MonacoEnvironment = {
-    getWorker(_, label: string) {
-      switch (label) {
-        case 'html':
-          return new htmlWorker();
-        case 'css':
-          return new cssWorker();
-        case 'json':
-          return new jsonWorker();
-        case 'typescript':
-        case 'javascript':
-          return new tsWorker();
-        default:
-          return new editorWorker();
-      }
-    },
-  };
 
 interface Props {
   originalCode?: string;
@@ -46,10 +22,8 @@ export const DiffEditor: Component<Props> = (props) => {
   let modifiedModel: editor.ITextModel | null;
   let diffEditor: editor.IStandaloneDiffEditor | null;
 
-  onMount(() => {
+  onMount(async () => {
     if (!editorHtml) return;
-
-    editor.setTheme('vs-dark');
 
     originalModel = editor.createModel(originalCode(), undefined);
     modifiedModel = editor.createModel(modifiedCode(), undefined);
@@ -59,6 +33,11 @@ export const DiffEditor: Component<Props> = (props) => {
       {
         automaticLayout: true,
         originalEditable: true,
+        wordWrap: 'on',
+        suggest: {
+          showFields: false,
+          showFunctions: false,
+        }
       }
     );
     diffEditor.setModel({
