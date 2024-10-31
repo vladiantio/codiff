@@ -1,28 +1,17 @@
-## Usage
+<div align="center">
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+<a href="https://codiff.vercel.app" rel="nofollow"><img alt="codiff Logo" src="public/icon.svg?v=1" style="width:8rem;"></a>
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## [codiff](https://codiff.vercel.app)
 
-## Available Scripts
+codiff is a diff tool that can find the difference between two text documents.<br>Just paste or drag and drop.
 
-In the project directory, you can run:
+This is an improved recreation of [Text Compare!](https://text-compare.com/)
 
-### `npm run dev`
+![GitHub License](https://img.shields.io/github/license/vladiantio/codiff?style=for-the-badge)
+[![Made with SolidJS](https://img.shields.io/badge/Made_with-SolidJS-0e8ee7?style=for-the-badge&logo=solid)](https://solidjs.com)
+[![Maintained with Bun](https://img.shields.io/badge/Maintained_with-Bun-f9f1e1?style=for-the-badge&logo=bun)](https://bun.sh)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+![codiff Screenshot](screenshots/app-tsx.png)
 
-### `npm run build`
-
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-Learn more about deploying your application with the [documentations](https://vitejs.dev/guide/static-deploy.html)
+</div>

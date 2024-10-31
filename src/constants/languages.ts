@@ -1,5 +1,7 @@
+import { translate } from "~/i18n";
+
 export const languages = [
-  { name: 'text/plain', filePattern:null, title:'Plain Text' },
+  { name: 'text/plain', filePattern:null, title:translate('plainText') },
   { name: 'html', filePattern:'\\.html', title:'HTML' },
   { name: 'xml', filePattern:'\\.(xml|svg)', contentPattern: '<\\?xml', title:'XML' },
   { name: 'css', filePattern:'\\.css', title:'CSS' },

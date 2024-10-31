@@ -43,6 +43,8 @@ export const DropZone: Component<Props> = (props) => {
     const files = getFilesDropped(ev);
     if (files && files.length > 0 && props.onChangeOriginalFile) {
       props.onChangeOriginalFile(files[0]);
+      if (files.length > 1 && props.onChangeModifiedFile)
+        props.onChangeModifiedFile(files[1]);
     }
     setIsDraggingOriginalCode(false);
     setShow(false);
@@ -52,21 +54,23 @@ export const DropZone: Component<Props> = (props) => {
     const files = getFilesDropped(ev);
     if (files && files.length > 0 && props.onChangeModifiedFile) {
       props.onChangeModifiedFile(files[0]);
+      if (files.length > 1 && props.onChangeOriginalFile)
+        props.onChangeOriginalFile(files[1]);
     }
     setIsDraggingModifiedCode(false);
     setShow(false);
   };
 
   return (
-    <div class={`absolute top-0 left-0 size-full grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-2 p-2 ${show() ? '' : 'hidden'}`}>
+    <div class={`absolute top-0 left-0 size-full text-8xl font-bold grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 ${show() ? '' : 'hidden'}`}>
       <div
-        class={`bg-blue-500/60 rounded-lg grid place-content-center text-8xl font-bold transition-opacity ${isDraggingOriginalCode() ? '' : 'opacity-50'}`}
+        class={`bg-blue-500/60 rounded-lg grid place-content-center transition ${isDraggingOriginalCode() ? '' : 'opacity-50 scale-95'}`}
         ondragover={handleDragOverOriginalCode}
         ondragleave={handleDragLeaveOriginalCode}
         ondrop={handleDropOriginalCode}
       >1</div>
       <div
-        class={`bg-blue-500/60 rounded-lg grid place-content-center text-8xl font-bold transition-opacity ${isDraggingModifiedCode() ? '' : 'opacity-50'}`}
+        class={`bg-blue-500/60 rounded-lg grid place-content-center transition ${isDraggingModifiedCode() ? '' : 'opacity-50 scale-95'}`}
         ondragover={handleDragOverModifiedCode}
         ondragleave={handleDragLeaveModifiedCode}
         ondrop={handleDropModifiedCode}
