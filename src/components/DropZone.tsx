@@ -62,15 +62,15 @@ export const DropZone: Component<Props> = (props) => {
   };
 
   return (
-    <div class={`absolute top-0 left-0 size-full grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 ${show() ? '' : 'hidden'}`}>
+    <div class={`absolute top-0 left-0 size-full text-8xl font-bold grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 ${show() ? '' : 'hidden'}`}>
       <div
-        class={`bg-blue-500/60 rounded-lg grid place-content-center text-8xl font-bold transition ${isDraggingOriginalCode() ? '' : 'opacity-50 scale-95'}`}
+        class={`bg-blue-500/60 rounded-lg grid place-content-center transition ${isDraggingOriginalCode() ? '' : 'opacity-50 scale-95'}`}
         ondragover={handleDragOverOriginalCode}
         ondragleave={handleDragLeaveOriginalCode}
         ondrop={handleDropOriginalCode}
       >1</div>
       <div
-        class={`bg-blue-500/60 rounded-lg grid place-content-center text-8xl font-bold transition ${isDraggingModifiedCode() ? '' : 'opacity-50 scale-95'}`}
+        class={`bg-blue-500/60 rounded-lg grid place-content-center transition ${isDraggingModifiedCode() ? '' : 'opacity-50 scale-95'}`}
         ondragover={handleDragOverModifiedCode}
         ondragleave={handleDragLeaveModifiedCode}
         ondrop={handleDropModifiedCode}
