@@ -7,6 +7,8 @@ import { DropZone } from "./components/DropZone";
 import { translate } from "./i18n";
 
 function App() {
+  const [originalName, setOriginalName] = createSignal('Version 1');
+  const [modifiedName, setModifiedName] = createSignal('Version 2');
   const [original, setOriginal] = createSignal('');
   const [modified, setModified] = createSignal('');
 
@@ -22,22 +24,30 @@ function App() {
     setLanguageName(languageDetected?.name ?? defaultLanguage);
     if (number == 1) {
       setOriginal(content);
+      setOriginalName(file.name);
     } else {
       setModified(content);
+      setModifiedName(file.name);
     }
   };
 
   const clear = () => {
     setLanguageName(defaultLanguage);
     setOriginal('');
+    setOriginalName('Version 1');
     setModified('');
+    setModifiedName('Version 2');
   };
 
   const switchText = () => {
     const tempOriginal = original();
+    const tempOriginalName = originalName();
     const tempModified = modified();
+    const tempModifiedName = modifiedName();
     setOriginal(tempModified);
+    setOriginalName(tempModifiedName);
     setModified(tempOriginal);
+    setModifiedName(tempOriginalName);
   };
 
   return (
@@ -70,14 +80,19 @@ function App() {
             <ArrowUpRight class="size-[1em] text-neutral-500" />
           </a>
         </nav>
-        <DiffEditor
-          class="overflow-hidden rounded-lg shadow-md"
-          language={languageName()}
-          original={original()}
-          modified={modified()}
-          onUpdateOriginal={code => setOriginal(code)}
-          onUpdateModified={code => setModified(code)}
-        />
+        <div class="overflow-hidden rounded-lg shadow-md grid [grid-template-rows:auto_1fr]">
+          <div class="hidden md:grid md:grid-cols-2">
+            <input type="text" class="bg-neutral-800 py-1 text-center" value={originalName()} onchange={ev => setOriginalName(ev.target.value)} />
+            <input type="text" class="bg-neutral-800 py-1 text-center" value={modifiedName()} onchange={ev => setModifiedName(ev.target.value)} />
+          </div>
+          <DiffEditor
+            language={languageName()}
+            original={original()}
+            modified={modified()}
+            onUpdateOriginal={code => setOriginal(code)}
+            onUpdateModified={code => setModified(code)}
+          />
+        </div>
       </div>
       {original().length === 0 && (
         <div class={`absolute top-1/2 left-0 w-1/2 text-center italic hidden md:block`}>
