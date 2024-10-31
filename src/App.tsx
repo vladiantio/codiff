@@ -1,15 +1,15 @@
 import { createSignal, For } from "solid-js";
 import { readFile } from "./utils/files";
 import { DiffEditor } from "./components/DiffEditor";
-import { languages } from "./constants/languages";
+import { defaultLanguage, languages } from "./constants/languages";
 import { ArrowUpRight, Eraser, GitHub } from "./icons";
 import { DropZone } from "./components/DropZone";
 
 function App() {
-  const [originalCode, setOriginalCode] = createSignal('');
-  const [modifiedCode, setModifiedCode] = createSignal('');
+  const [original, setOriginal] = createSignal('');
+  const [modified, setModified] = createSignal('');
 
-  const [languageName, setLanguageName] = createSignal('text/plain');
+  const [languageName, setLanguageName] = createSignal(defaultLanguage);
 
   const handleChangeFile = async (number: number, file: File) => {
     const content = await readFile(file);
@@ -18,18 +18,18 @@ function App() {
     let languageDetected = languages.find(lang => lang.filePattern && new RegExp(lang.filePattern + '$').test(file.name));
     if (!languageDetected)
       languageDetected = languages.find(lang => lang.contentPattern && new RegExp('^' + lang.contentPattern).test(content));
-    setLanguageName(languageDetected?.name ?? 'text/plain');
+    setLanguageName(languageDetected?.name ?? defaultLanguage);
     if (number == 1) {
-      setOriginalCode(content);
+      setOriginal(content);
     } else {
-      setModifiedCode(content);
+      setModified(content);
     }
   };
 
   const clear = () => {
-    setLanguageName('text/plain');
-    setOriginalCode('');
-    setModifiedCode('');
+    setLanguageName(defaultLanguage);
+    setOriginal('');
+    setModified('');
   };
 
   return (
@@ -61,10 +61,10 @@ function App() {
         <DiffEditor
           class="overflow-hidden rounded-lg shadow-md"
           language={languageName()}
-          originalCode={originalCode()}
-          modifiedCode={modifiedCode()}
-          onUpdateOriginalCode={code => setOriginalCode(code)}
-          onUpdateModifiedCode={code => setModifiedCode(code)}
+          original={original()}
+          modified={modified()}
+          onUpdateOriginal={code => setOriginal(code)}
+          onUpdateModified={code => setModified(code)}
         />
       </div>
       <DropZone

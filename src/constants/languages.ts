@@ -20,9 +20,8 @@ export const languages = [
   { name: 'ini', filePattern:'\\.ini', title:'INI' },
   { name: 'markdown', filePattern:'\\.md', title:'Markdown' },
   { name: 'bat', filePattern:'\\.(bat|cmd)', title:'Batch' },
-  { name: 'shellscript', filePattern:'\\.sh', title:'Shell Script' },
+  { name: 'shell', filePattern:'\\.(bashrc|bash_history|bash_logout|bash_profile|profile|sh|zlogin|zlogout|zprofile|zsh|zshenv|zshrc)', title:'Shell Script' },
   { name: 'csv', filePattern:'\\.csv', title:'CSV' },
-  { name: 'perl', filePattern:'\\.pl', title:'Perl' },
   { name: 'vb', filePattern:'\\.vb', title:'Visual Basic' },
   { name: 'vue', filePattern:'\\.vue', title:'Vue' },
   { name: 'svelte', filePattern:'\\.svelte', title:'Svelte' },
@@ -32,12 +31,14 @@ export const languages = [
   { name: 'handlebars', filePattern:'\\.hbs', title:'Handlebars' },
   { name: 'http', filePattern:'\\.http', title:'HTTP' },
   { name: 'toml', filePattern:'\\.toml', title:'TOML' },
-  { name: 'zig', filePattern:'\\.zig', title:'Zig' },
   { name: 'go', filePattern:'\\.go', title:'Go' },
   { name: 'graphql', filePattern:'\\.gql', title:'GraphQL' },
-  { name: 'ignore', filePattern:'\\.gitignore', title:'Git Ignore' },
   { name: 'ruby', filePattern:'\\.rb', title:'Ruby' },
   { name: 'kotlin', filePattern:'\\.kt', title:'Kotlin' },
-  { name: 'solidity', filePattern:'\\.sol', title:'Solidity' },
+  { name: 'dart', filePattern:'\\.dart', title:'Dart' },
+  { name: 'scss', filePattern:'\\.s(c|a)ss', title:'SCSS' },
+  { name: 'less', filePattern:'\\.less', title:'Less' },
 ];
 languages.sort((a, b) => a.title.localeCompare(b.title));
+
+export const defaultLanguage = 'text/plain';

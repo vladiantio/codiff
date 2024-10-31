@@ -1,22 +1,22 @@
 import { Component, createEffect, createSignal, on, onCleanup, onMount } from 'solid-js';
-import { editor } from 'monaco-editor';
+import { editor } from 'monaco-editor/esm/vs/editor/editor.api.js';
 
 interface Props {
-  originalCode?: string;
-  modifiedCode?: string;
+  original?: string;
+  modified?: string;
   class?: string;
   language?: string;
-  onUpdateOriginalCode?: (code: string) => void;
-  onUpdateModifiedCode?: (code: string) => void;
+  onUpdateOriginal?: (code: string) => void;
+  onUpdateModified?: (code: string) => void;
 }
 
 export const DiffEditor: Component<Props> = (props) => {
-  const originalCode = () => props.originalCode ?? '';
-  const modifiedCode = () => props.modifiedCode ?? '';
+  const original = () => props.original ?? '';
+  const modified = () => props.modified ?? '';
   const language = () => props.language ?? 'text/plain';
   const [currentLanguage, setCurrentLanguage] = createSignal('text/plain');
-  const [isUpdatingOriginalCode, setIsUpdatingOriginalCode] = createSignal(false);
-  const [isUpdatingModifiedCode, setIsUpdatingModifiedCode] = createSignal(false);
+  const [isUpdatingOriginal, setIsUpdatingOriginal] = createSignal(false);
+  const [isUpdatingModified, setIsUpdatingModified] = createSignal(false);
   let editorHtml: HTMLElement | undefined;
   let originalModel: editor.ITextModel | null;
   let modifiedModel: editor.ITextModel | null;
@@ -25,8 +25,8 @@ export const DiffEditor: Component<Props> = (props) => {
   onMount(async () => {
     if (!editorHtml) return;
 
-    originalModel = editor.createModel(originalCode(), undefined);
-    modifiedModel = editor.createModel(modifiedCode(), undefined);
+    originalModel = editor.createModel(original(), undefined);
+    modifiedModel = editor.createModel(modified(), undefined);
 
     diffEditor = editor.createDiffEditor(
       editorHtml,
@@ -46,17 +46,17 @@ export const DiffEditor: Component<Props> = (props) => {
     });
 
     originalModel.onDidChangeContent(() => {
-      if (!originalModel || !props.onUpdateOriginalCode || isUpdatingOriginalCode()) return;
-      setIsUpdatingOriginalCode(true);
-      props.onUpdateOriginalCode(originalModel.getValue());
-      setIsUpdatingOriginalCode(false);
+      if (!originalModel || !props.onUpdateOriginal || isUpdatingOriginal()) return;
+      setIsUpdatingOriginal(true);
+      props.onUpdateOriginal(originalModel.getValue());
+      setIsUpdatingOriginal(false);
     });
 
     modifiedModel.onDidChangeContent(() => {
-      if (!modifiedModel || !props.onUpdateModifiedCode || isUpdatingModifiedCode()) return;
-      setIsUpdatingModifiedCode(true);
-      props.onUpdateModifiedCode(modifiedModel.getValue());
-      setIsUpdatingModifiedCode(false);
+      if (!modifiedModel || !props.onUpdateModified || isUpdatingModified()) return;
+      setIsUpdatingModified(true);
+      props.onUpdateModified(modifiedModel.getValue());
+      setIsUpdatingModified(false);
     });
   });
 
@@ -74,20 +74,20 @@ export const DiffEditor: Component<Props> = (props) => {
   )
 
   createEffect(
-    on(originalCode, (value) => {
-      if (!originalModel || isUpdatingOriginalCode()) return;
-      setIsUpdatingOriginalCode(true);
+    on(original, (value) => {
+      if (!originalModel || isUpdatingOriginal()) return;
+      setIsUpdatingOriginal(true);
       originalModel.setValue(value);
-      setIsUpdatingOriginalCode(false);
+      setIsUpdatingOriginal(false);
     }, { defer: true })
   );
 
   createEffect(
-    on(modifiedCode, (value) => {
-      if (!modifiedModel || isUpdatingModifiedCode()) return;
-      setIsUpdatingModifiedCode(true);
+    on(modified, (value) => {
+      if (!modifiedModel || isUpdatingModified()) return;
+      setIsUpdatingModified(true);
       modifiedModel.setValue(value);
-      setIsUpdatingModifiedCode(false);
+      setIsUpdatingModified(false);
     }, { defer: true })
   );
 
